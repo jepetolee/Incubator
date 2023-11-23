@@ -1,4 +1,4 @@
-#include <DHT.h>
+#include "DHT.h"
 
 #define DHTPIN 2
 #define DHTTYPE DHT22
@@ -22,14 +22,14 @@ void riningBuzzerHigh(){
   tone(Buzzer, 1000); // Send 1KHz sound signal...
   delay(1000);        // ...for 1 sec
   noTone(Buzzer);     // Stop sound...
-  delay(1000)
+  delay(1000);
 }
 
 void riningBuzzerLow(){
   tone(Buzzer, 1000); // Send 1KHz sound signal...
   delay(1000);        // ...for 1 sec
   noTone(Buzzer);     // Stop sound...
-  delay(1000)
+  delay(1000);
 }
 
 int humidity(){
@@ -83,7 +83,7 @@ void controlFlip(){
 void setup() {
     Serial.begin(9600);
     pinMode(HeatingPad, OUTPUT);
-    pinMode(HumidTempSensor, OUTPUT);
+    pinMode(DHTPIN, OUTPUT);
     pinMode(directionPinDC, OUTPUT);
     pinMode(pwmPinDC, OUTPUT);
     pinMode(brakePinDC, OUTPUT);
@@ -93,10 +93,10 @@ void setup() {
 
 void loop() {
     int heatDelay =500;
-    if(controlHeat()<=38){
+    if(temperature()<=38){
       controlHeat(heatDelay--);
     }
-    else if(36<=controlHeat() ){
+    else if(36<=temperature() ){
       controlHeat(heatDelay++);
     }
     if(55>humidity()){
